@@ -4,6 +4,8 @@ Simple command-line tool to manage faces "memory" of deepstack instance. It prov
 
 The script simplifies registering face with multiple images by submitting all image files present in current directory.  
 
+NOTE: If recieving 500 errors at registration, you might be low on RAM. 4GiB is probably a minimum even for just a few faces/pictures
+
 <pre>
 
 $ dsm -h
@@ -55,3 +57,12 @@ usage: dsm delete [-h] name
 
 positional arguments:
   name        Name to delete
+
+Examples:
+---------
+Register all .jpg-files in the folder svenotto-faces with the name svenotto
+$ ./dsm.py -H 192.168.6.167 -K someverysecretkey register -p ../f
+ace/svenotto-faces/ svenotto
+
+Perform face recognition on one picture
+$ ./dsm.py -H 192.168.6.167 -K someverysecretkey recognize ../testfaces/svenotto/svenotto_jumping101.jpg
