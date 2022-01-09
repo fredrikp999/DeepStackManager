@@ -7,7 +7,7 @@ The script simplifies registering face with multiple images by submitting all im
 <pre>
 
 $ dsm -h
-usage: dsm [-h] [-H HOST] {register,recognize,detect,delete,list} ...
+usage: dsm [-h] [-H HOST] [-K API_KEY] {register,recognize,detect,delete,list} ...
 
 Deepstack management tool.
 
@@ -15,8 +15,9 @@ positional arguments:
   {register,recognize,detect,delete,list}
 
 optional arguments:
-  -h, --help            show this help message and exit
-  -H HOST, --host HOST  Address of deepstack server
+  -h, --help                    show this help message and exit
+  -H HOST, --host HOST          Address of deepstack server
+  -K API_KEY, --api_key API_KEY API-key for deepstack server
 
 
 
