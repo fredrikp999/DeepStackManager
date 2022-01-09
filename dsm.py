@@ -13,6 +13,7 @@ DEEPSTACK_ADDRESS="localhost:5000"
 
 parser = argparse.ArgumentParser(description='Deepstack management tool.')
 parser.add_argument('-H','--host', default=DEEPSTACK_ADDRESS, help='Address of deepstack server')
+parser.add_argument('-K','--api_key', default="someverysecretkey", help='API KEY of deepstack server')
 subparser = parser.add_subparsers(dest='action')
 r_parser = subparser.add_parser('register')
 r_parser.add_argument('name', help='Name to register')
@@ -48,7 +49,7 @@ if args.action == "register":
         i += 1
 
     if i > 0:
-      response = requests.post("http://"+args.host+"/v1/vision/face/register", files=images, data={"userid":args.name}).json()
+      response = requests.post("http://"+args.host+"/v1/vision/face/register", files=images, data={"userid":args.name,"api_key":args.api_key}).json()
       print(response)
 
 elif args.action == "recognize":
@@ -59,7 +60,7 @@ elif args.action == "recognize":
     img.save(output, format='JPEG', quality=100, subsampling=0)
     images["image"] = output.getvalue()
 
-    response = requests.post("http://"+args.host+"/v1/vision/face/recognize", files=images).json()
+    response = requests.post("http://"+args.host+"/v1/vision/face/recognize", files=images, data={"api_key":args.api_key}).json()
     print(response)
 
 elif args.action == "detect":
@@ -70,13 +71,13 @@ elif args.action == "detect":
     img.save(output, format='JPEG', quality=100, subsampling=0)
     images["image"] = output.getvalue()
 
-    response = requests.post("http://"+args.host+"/v1/vision/detection", files=images).json()
+    response = requests.post("http://"+args.host+"/v1/vision/detection", files=images, data={"api_key":args.api_key}).json()
     print(response)
 
 elif args.action == "delete":
-    response = requests.post("http://"+args.host+"/v1/vision/face/delete", data={"userid":args.name}).json()
+    response = requests.post("http://"+args.host+"/v1/vision/face/delete", data={"userid":args.name, "api_key":args.api_key}).json()
     print(response)
 
 elif args.action == "list":
-    response = requests.post("http://"+args.host+"/v1/vision/face/list").json()
+    response = requests.post("http://"+args.host+"/v1/vision/face/list", data={"api_key":args.api_key}).json()
     print(response)
